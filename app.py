@@ -5,7 +5,7 @@ from datetime import date
 import constantes
 
 print("---------------------------------------------")
-print("Hola, como estas?")
+print("Hola, buen dia")
 
 """
 https://www.youtube.com/watch?v=8DvywoWv6fI&ab_channel=freeCodeCamp.org
@@ -15,29 +15,25 @@ input() siempre devuelve un string
 Si quiero hacer un comment de una sola linea tengo que usar # como en los casos de abajo
 """
 
-# Pedir el nombre y guardarla/o en una variable
-nombre = input("Como te llamas? ")
-while len(nombre) <= constantes.MINNOMBRE or nombre.isalpha() == False:
-	print("ERROR: El nombre debe tener caracteres alfabeticos y debe tener mas de dos caracteres")
-	nombre = input("Reingrese su nombre: ")
+def pedirDato(tipoDeDato, primeraPregunta, minDato, maxDato, mensajeDeError, preguntaDespuesDeError, reintentos):
+	if tipoDeDato == 'string':
+		dato = input(primeraPregunta)
+		while len(dato) <= minDato or dato.isalpha() == False:
+			print(mensajeDeError)
+			dato = input(preguntaDespuesDeError)
+		return dato
+	if tipoDeDato == 'entero':
+		dato = int(input(primeraPregunta))
+		while type(dato) != int or dato < minDato or dato > maxDato:
+			print(mensajeDeError)
+			dato = int(input(preguntaDespuesDeError))
+		return dato
+	#float, double statements
 
-# Pedir la edad y guardarla/o en una variable
-edad = int(input("Cuantos años tenes? "))
-while type(edad) != int or edad < constantes.MINEDAD:
-	print("ERROR: La edad debe ser un numero entero. Y debe ser mayor de edad")
-	edad = int(input("Reingrese su edad: "))
-
-# Pedir el dia de nacimiento y guardarla/o en una variable
-diaDeNacimiento = int(input("Dia de nacimiento: "))
-while type(diaDeNacimiento) != int or diaDeNacimiento < constantes.UNO or diaDeNacimiento > constantes.MAXDIA:
-	print("ERROR: El dia debe ser un numero entero entre 1 y 31")
-	diaDeNacimiento = int(input("Reingrese el dia de nacimiento: "))
-
-# Pedir el mes de nacimiento y guardarla/o en una variable
-mesDeNacimiento = int(input("Mes de nacimiento: "))
-while type(mesDeNacimiento) != int or mesDeNacimiento < constantes.UNO or mesDeNacimiento > constantes.MAXMES:
-	print("ERROR: El mes debe ser un numero entero entre 1 y 12")
-	mesDeNacimiento = int(input("Reingrese el mes de nacimiento: "))
+nombre = pedirDato("string", "Ingrese su nombre: ", constantes.MINNOMBRE, constantes.MAXNOMBRE, "ERROR: El nombre debe tener caracteres alfabeticos y debe tener entre 2 y 150 caracteres", "Ingrese nuevamente su nombre: ", constantes.REINTENTOS)
+edad = pedirDato("entero", "Ingrese su edad: ", constantes.MINEDAD, constantes.MAXEDAD, "ERROR: La edad debe ser un numero entero. Y debe ser mayor de 18 y menor de 120", "Ingrese nuevamente su edad: ", constantes.REINTENTOS)
+diaDeNacimiento = pedirDato("entero", "Dia de nacimiento: ", constantes.UNO, constantes.MAXDIA, "ERROR: El dia debe ser un numero entero entre 1 y 31", "Ingrese nuevamente el dia de nacimiento: ", constantes.REINTENTOS)
+mesDeNacimiento = pedirDato("entero", "Mes de nacimiento: ", constantes.UNO, constantes.MAXMES, "ERROR: El mes debe ser un numero entero entre 1 y 12", "Ingrese nuevamente el mes de nacimiento: ", constantes.REINTENTOS)
 
 anoActual = date.today().year
 mesActual = date.today().month
