@@ -9,12 +9,27 @@ def mensajear(mensaje):
 	print("---------------------------------------------")
 	print(mensaje)
 
+#esta funcion deberia ser privada
+def formatearString(textoParaFormatear, tipoDeTexto):
+	textoParaFormatear = textoParaFormatear.capitalize()
+	if tipoDeTexto == "fecha":
+		return textoParaFormatear[0:3]
+	if tipoDeTexto == "generico":
+		return textoParaFormatear
+
+#esta funcion deberia ser privada
+def agregarCeroIzq(numero):
+	resultado = numero
+	if int(numero) < 10 and int(numero) >= 0:
+		resultado = "0" + numero
+	return resultado
+
 def imprimirResultados(diaActual, mesActual, minMes, maxMes, mensajeDeErrorMes, anoActual, horaActual, minutoActual, segundoActual, nombre, appellido, diaDeNacimiento, mesDeNacimiento, edad):
 	print("---------------------------------------------")
 	print("    Hoy es el dia " + str(diaActual) + " de " + definirMes(mesActual, constantes.UNO, constantes.MAXMES, mensajeDeErrorMes) + " del año " + str(anoActual))
-	print("    Hora " + str(horaActual) + ":" + str(minutoActual) + ":" + str(segundoActual))
+	print("    Hora " + agregarCeroIzq(str(horaActual)) + ":" + agregarCeroIzq(str(minutoActual)) + ":" + agregarCeroIzq(str(segundoActual)))
 	print("---------------------------------------------")
-	print("\tBuen dia " + apellido + ", " + nombre)
+	print("\tBuen dia " + formatearString(apellido, "generico") + ", " + formatearString(nombre, "generico"))
 	anoDeNacimiento = calcularAnoDeNacimiento(diaDeNacimiento, mesDeNacimiento, edad, diaActual, mesActual, anoActual)
 	print("\tNaciste en la fecha " + str(diaDeNacimiento) + "/" + str(mesDeNacimiento) + "/" + str(anoDeNacimiento))
 	print("---------------------------------------------")
@@ -50,12 +65,10 @@ def pedirCodigoDeDesbloqueo(mensajeDeDesbloqueo, errorCodigoDeDesbloque, mensaje
 	while (len(codigoDeDesbloqueo) > 14 or len(codigoDeDesbloqueo) < 14) and codigoDeDesbloqueo != "Desbloqueo1234":
 		resultado = -1
 		codigoDeDesbloqueo = input(errorCodigoDeDesbloqueo)
-
 	if resultado == -1:
 		print(errorCodigoDeDesbloqueo)
 	elif resultado == 1:
 		print(mensajeDesbloqueoSatisfactorio)
-
 	return resultado
 
 def pedirDato(tipoDeDato, primeraPregunta, minDato, maxDato, mensajeDeError, preguntaDespuesDeError, reintentos, reintentosError, codigoDeDesbloqueo):
@@ -69,8 +82,7 @@ def pedirDato(tipoDeDato, primeraPregunta, minDato, maxDato, mensajeDeError, pre
 				dato = input(preguntaDespuesDeError)
 			if reintentos < 0:
 				reintentos = 3
-				resultado = pedirCodigoDeDesbloqueo("Ingrese el codigo de desbloqueo para continuar (Desbloqueo1234): ", "El codigo de debloqueo no funciona, contacte al administrador del sitema... JODETE HERMANO", "El flujo fue desbloqueado")
-				
+				resultado = pedirCodigoDeDesbloqueo("Ingrese el codigo de desbloqueo para continuar (Desbloqueo1234): ", "El codigo de debloqueo no funciona, contacte al administrador del sitema... JODETE HERMANO", "El flujo fue desbloqueado")	
 		return dato
 	if tipoDeDato == 'entero':
 		dato = int(input(primeraPregunta))
@@ -106,12 +118,12 @@ def definirMes(numeroDeMes, minMes, maxMes, mensajeDeError):
 	elif numeroDeMes == 9:
 		mes = "septiembre"
 	elif numeroDeMes == 10:
-		mes = "octubre"
+		mes = "oCTubre"
 	elif numeroDeMes == 11:
 		mes = "noviembre"
 	elif numeroDeMes == 12:
 		mes = "diciembre"
-	return mes
+	return formatearString(mes, "fecha")
 
 """
 https://www.youtube.com/watch?v=8DvywoWv6fI&ab_channel=freeCodeCamp.org
