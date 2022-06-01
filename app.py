@@ -59,7 +59,7 @@ def calcularAnoDeNacimiento(diaDeNacimiento, mesDeNacimiento, edad, diaActual, m
 		anoDeNacimiento = anoActual - edad - constantes.UNO
 	return anoDeNacimiento
 
-def pedirCodigoDeDesbloqueo(mensajeDeDesbloqueo, errorCodigoDeDesbloque, mensajeDesbloqueoSatisfactorio):
+def pedirCodigoDeDesbloqueo(mensajeDeDesbloqueo, errorCodigoDeDesbloqueo, mensajeDesbloqueoSatisfactorio):
 	resultado = 1
 	codigoDeDesbloqueo = input(mensajeDeDesbloqueo)
 	while (len(codigoDeDesbloqueo) > 14 or len(codigoDeDesbloqueo) < 14) and codigoDeDesbloqueo != "Desbloqueo1234":
@@ -82,7 +82,8 @@ def pedirDato(tipoDeDato, primeraPregunta, minDato, maxDato, mensajeDeError, pre
 				dato = input(preguntaDespuesDeError)
 			if reintentos < 0:
 				reintentos = 3
-				resultado = pedirCodigoDeDesbloqueo("Ingrese el codigo de desbloqueo para continuar (Desbloqueo1234): ", "El codigo de debloqueo no funciona, contacte al administrador del sitema... JODETE HERMANO", "El flujo fue desbloqueado")	
+				# TODO: Hacer algo con el resultado porque sino esto no sisrve para nada pa
+				#resultado = pedirCodigoDeDesbloqueo("Ingrese el codigo de desbloqueo para continuar (Desbloqueo1234): ", "El codigo de debloqueo no funciona, contacte al administrador del sitema... JODETE HERMANO", "El flujo fue desbloqueado")	
 		return dato
 	if tipoDeDato == 'entero':
 		dato = int(input(primeraPregunta))
